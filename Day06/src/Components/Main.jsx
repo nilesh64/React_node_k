@@ -6,7 +6,9 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import Form from './Form';
 
+
 const Main = () => {
+  
   return (
     <>
 

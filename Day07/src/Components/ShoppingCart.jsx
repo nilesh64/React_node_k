@@ -1,7 +1,6 @@
 import React from 'react';
 import  {useState}  from 'react';
 import product from '../utility/data';
-
 const ShoppingCart = ({ products }) => {
   const[counts , setcount] =useState(Array(products.length).fill(0));
   const HandleIncrement =(index)=>{
@@ -26,7 +25,6 @@ const ShoppingCart = ({ products }) => {
           <h1>Shopping Cart</h1>
           <h1>{products.length} items</h1>
         </div>
-
         {/* Table Headers */}
         <div className="flex justify-between p-2 m-2 text-zinc-400">
           <h3>PRODUCT DETAILS</h3>
@@ -34,7 +32,6 @@ const ShoppingCart = ({ products }) => {
           <h3>PRICE</h3>
           <h3>TOTAL</h3>
         </div>
-
         {/* Product Rows */}
         {products.map((prod,index) => (
           <div
@@ -57,10 +54,8 @@ const ShoppingCart = ({ products }) => {
             <div className="text-xl py-4">${prod.price}</div>
           </div>
         ))}
-
         <button className="bg-blue-400 p-2 text-white">Continue shopping</button>
       </div>
-
       {/* Order Summary */}
       <div className="border p-4 bg-gray-100">
         <h1 className="font-bold text-xl">Order Summary</h1>
@@ -101,5 +96,4 @@ const ShoppingCart = ({ products }) => {
     </div>
   );
 };
-
 export default ShoppingCart;

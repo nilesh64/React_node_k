@@ -1,30 +1,33 @@
 import React, { useState } from "react";
-// import React ,{ useState } from "react";
+import products from "../Utility/data";
+
 const CardComponent = ({ contacts }) => {
-
-    const [count , setcount] = useState(0);
-    const Increment =() =>{
-        if (count >=10){
-            alert("you can't increse");
-            setcount(5);
-
-        }else setcount(count + 1);
-        console.log(count);
-    };
-    const Decrement = () => {
-        if (count ===0) alert("no items to remove")
-            count>0 ? setcount(count-1):0;
-    }
-
   let cart = [];
   let wishlist = [];
-
   const [productList, setProductList] = useState(contacts);
   const [snackbar, setSnackbar] = useState({
     show: false,
     message: "",
     success: true,
   });
+  const [count, setCount] = useState(Array(products.length).fill(0));
+  const Increment = (index) => {
+    console.log(index);
+    console.log(count[index]);
+    setCount((prevCounts) =>
+      prevCounts.map((count, i) =>
+        i === index ? (count >= 10 ? 10: count + 1) : count
+      )
+    );
+  };
+
+  const Decrement = (index) => {
+    setCount((prevCounts) =>
+      prevCounts.map((count, i) =>
+        i === index ? (count <= 0 ? 0 : count - 1) : count
+      )
+    );
+  };
 
   const showSnackbar = (success, message) => {
     setSnackbar({ show: true, message, success });
@@ -92,7 +95,7 @@ const CardComponent = ({ contacts }) => {
   return (
     <div className="relative">
       <div className="flex flex-wrap justify-center gap-6 px-4">
-        {productList.map((product) => (
+        {productList.map((product, index) => (
           <div
             key={product.id}
             className="w-[20rem] bg-gradient-to-br from-purple-50 to-purple-100 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-transform duration-300"
@@ -142,9 +145,19 @@ const CardComponent = ({ contacts }) => {
                 </button>
               </div>
               <div className="px-2 m-2 ">
-                <button className="bg-purple-500 px-1 rounded" onClick={Increment}>+</button>
-                <span className="px-2">{count}</span>
-                <button className="bg-purple-500 px-2 rounded" onClick={Decrement}> -</button>
+                <button
+                  className="bg-purple-500 px-1 rounded"
+                  onClick={() =>Increment(index)}
+                >
+                  +
+                </button>
+                <span className="px-2">{count[index]}</span>
+                <button
+                  className="bg-purple-500 px-2 rounded"
+                  onClick={() => Decrement(index)}
+                >
+                  -
+                </button>
               </div>
             </div>
           </div>

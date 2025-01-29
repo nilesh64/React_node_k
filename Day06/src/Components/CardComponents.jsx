@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import products from "../Utility/data";
 
 const CardComponent = ({ contacts }) => {
@@ -16,7 +16,7 @@ const CardComponent = ({ contacts }) => {
     console.log(count[index]);
     setCount((prevCounts) =>
       prevCounts.map((count, i) =>
-        i === index ? (count >= 10 ? 10: count + 1) : count
+        i === index ? (count >= 10 ? 10 : count + 1) : count
       )
     );
   };
@@ -91,11 +91,17 @@ const CardComponent = ({ contacts }) => {
       showSnackbar(false, "Product Already Removed");
     }
   };
+  const[isLoading,setIsLoading]=useState(false);
+   useEffect(()=>{
+const timer =setTimeout(() => setIsLoading(true), 3000);
+return ()=>clearTimeout(timer);
+  },[]);
 
   return (
     <div className="relative">
       <div className="flex flex-wrap justify-center gap-6 px-4">
-        {productList.map((product, index) => (
+      {isLoading ?
+        productList.map((product, index) => (
           <div
             key={product.id}
             className="w-[20rem] bg-gradient-to-br from-purple-50 to-purple-100 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-transform duration-300"
@@ -147,7 +153,7 @@ const CardComponent = ({ contacts }) => {
               <div className="px-2 m-2 ">
                 <button
                   className="bg-purple-500 px-1 rounded"
-                  onClick={() =>Increment(index)}
+                  onClick={() => Increment(index)}
                 >
                   +
                 </button>
@@ -157,6 +163,55 @@ const CardComponent = ({ contacts }) => {
                   onClick={() => Decrement(index)}
                 >
                   -
+                </button>
+              </div>
+            </div>
+          </div>
+        )):
+        productList.map((product, index) => (
+          <div
+            key={product.id}
+            className="w-[20rem] bg-gradient-to-br from-purple-50 to-purple-100 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-transform duration-300 animate-pulse"
+          >
+            <h2
+              className="w-full h-44 object-contain bg-white">
+              
+            </h2>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold text-purple-800 mb-2"></h2>
+              <p className="text-sm text-gray-700 mb-3"></p>
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-lg font-bold text-purple-900"></span>
+                <span className="bg-purple-200 text-purple-800 py-1 px-3 rounded-full text-sm font-medium"></span>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  className="flex-1 bg-gradient-to-r from-purple-500 to-purple-700 text-white py-2 rounded-lg text-center hover:from-purple-700 hover:to-purple-500 transition-all duration-300"
+                  onClick={() => {
+                    product.isCart === true
+                      ? handleRemoveFromCart(product)
+                      : handleAddToCart(product);
+                  }}
+                >
+                  {product.isCart === true ? "" : ""}
+                </button>
+                <button className="flex-1 bg-gradient-to-r from-gray-300 to-gray-400 text-gray-900 p-5 rounded-lg text-center hover:from-gray-400 hover:to-gray-300 transition-all duration-300">
+                  {product.isWishlist === true ? "" : ""}
+                </button>
+              </div>
+              <div className="px-2 m-2 ">
+                <button
+                  className="bg-purple-500 px-1 rounded"
+                  
+                >
+                  
+                </button>
+                <span className="px-2">{}</span>
+                <button
+                  className="bg-purple-500 px-2 rounded "
+                
+                >
+                  
                 </button>
               </div>
             </div>

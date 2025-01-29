@@ -18,11 +18,11 @@ const Form = () => {
                             >
                                 Email
                             </label>
-                            <input
+                           < input
                                 type="email"
                                 id="email"
                                 placeholder="Enter your email"
-                                className="w-full px-4 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full  px-4 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
                             />
                         </div>
